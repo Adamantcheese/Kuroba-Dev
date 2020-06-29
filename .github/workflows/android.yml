@@ -1,0 +1,69 @@
+name: Dev Build APK Build And Deploy
+
+on:
+  repository_dispatch:
+    types: [build_dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      repository: ${{ github.repository_owner }}/Kuroba
+
+    - name: Generate Git SHA
+      id: get-SHA
+      run: |
+        echo "::set-output name=SHA::$(git rev-parse HEAD)"
+      
+    - name: Generate Tag
+      id: get-tag
+      run: |
+        echo "::set-output name=tag::$(echo ${{ steps.get-SHA.outputs.SHA }} | cut -c1-8)"
+        
+    - name: Generate Version
+      id: get-version
+      run: |
+        tag=$(git describe --abbrev=0 --tags)
+        echo $tag | sed -r 's/v([0-9]+?)\.([0-9]{1,2})\.([0-9]{1,2})/echo "::set-output name=major::\1";echo "::set-output name=minor::\2";echo "::set-output name=patch::\3"/e'
+    
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        
+    - name: Install Android Libraries
+      env:
+        API: 29
+        BUILDTOOLS: 29.0.3
+        NDK: 21.0.6113669
+      run: |
+        echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "tools" "platforms;android-$API" "build-tools;$BUILDTOOLS" "extras;android;m2repository" "ndk;$NDK" --sdk_root=${ANDROID_SDK_ROOT} > /dev/null
+      
+    - name: Build with Gradle
+      id: build
+      run: |
+        cd ./Kuroba
+        ./gradlew assembleDevDebug --console plain -x lint
+        cd ..
+        echo "::set-output name=output_apk::$(find -name "*.apk")"
+        
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.1.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.get-version.outputs.major }}.${{ steps.get-version.outputs.minor }}.${{ steps.get-version.outputs.patch }}-${{ steps.get-tag.outputs.tag }}
+        body: ${{ steps.get-SHA.outputs.SHA }}
+          
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ steps.build.outputs.output_apk }}
+        asset_name: Kuroba-${{ steps.get-tag.outputs.tag }}.apk
+        asset_content_type: application/vnd.android.package-archive
