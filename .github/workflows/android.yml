@@ -10,7 +10,8 @@ jobs:
     steps:
     # Checkout your master repo
     - uses: actions/checkout@v2
-      repository: ${{ github.repository_owner }}/Kuroba
+      with:
+        repository: ${{ github.repository_owner }}/Kuroba
 
     # Get the SHA for the most recent commit in your master repo
     - name: Generate Git SHA
