@@ -55,7 +55,7 @@ jobs:
         ./gradlew assembleDevDebug --console plain -x lint
         cd ..
         echo "::set-output name=output_apk::$(find -name "*.apk")"
-        echo "::set-output name=app-name::$(filename=${{ steps.build.outputs.output_apk }} && echo ${filename%.*})"
+        echo "::set-output name=app-name::$(find -name "*.apk" | xargs basename | sed 's/\.apk//')"
     
     # Create a release in this repository with a tag name of <release_version>-<trimmed_SHA> and a body of the full commit SHA
     - name: Create Release
