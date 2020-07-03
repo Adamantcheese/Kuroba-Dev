@@ -1,4 +1,4 @@
-name: Dev Build APK Build And Deploy
+name: Build Dev
 
 on:
   repository_dispatch:
