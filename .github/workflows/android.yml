@@ -58,7 +58,7 @@ jobs:
     - name: Install NDK
       if: steps.ndk-cache.outputs.cache-hit != 'true'
       run: |
-        echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;$NDK" --sdk_root=${ANDROID_SDK_ROOT} > /dev/null
+        echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;$NDK" > /dev/null
     
     # Build the android project and store the location of the generated APK and build name
     - name: Build with Gradle
