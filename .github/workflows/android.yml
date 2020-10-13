@@ -31,6 +31,13 @@ jobs:
       id: get-version
       run: |
         echo "::set-output name=version::$(git describe --abbrev=0 --tags)"
+        
+    # Apply any patches needed here
+    - name: Apply Patches
+      run: |
+        pwd
+        ls -l
+    # git apply remove-leakcanary-patch.patch
     
     # Set up the JDK for the build
     - name: Set up JDK 1.8
@@ -64,6 +71,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
+        release-name: ${{ steps.get-version.outputs.version }}-${{ steps.get-tag.outputs.tag }}
         tag_name: ${{ steps.get-version.outputs.version }}-${{ steps.get-tag.outputs.tag }}
         body: ${{ steps.get-SHA.outputs.SHA }}
      

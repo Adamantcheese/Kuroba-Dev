@@ -1,0 +1,25 @@
+From 701f0e48002adbad3339ff9e4ebe5c81cd71ac8e Mon Sep 17 00:00:00 2001
+From: Adamantcheese <Adamantcheese@users.noreply.github.com>
+Date: Mon, 12 Oct 2020 20:09:01 -0700
+Subject: [PATCH] remove leakcanary patch
+
+---
+ Kuroba/app/build.gradle | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/Kuroba/app/build.gradle b/Kuroba/app/build.gradle
+index a12c73ee3..f2a8a4d61 100644
+--- a/Kuroba/app/build.gradle
++++ b/Kuroba/app/build.gradle
+@@ -254,8 +254,6 @@ dependencies {
+     testImplementation 'com.squareup.okhttp3:mockwebserver:4.8.0'
+     testImplementation 'org.mockito:mockito-core:3.4.6'
+     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+-
+-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+ }
+ 
+ // Download the current archives.json file for the build
+-- 
+2.20.1.windows.1
+
