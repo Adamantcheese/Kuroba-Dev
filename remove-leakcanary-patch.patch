@@ -1,14 +1,14 @@
-From 701f0e48002adbad3339ff9e4ebe5c81cd71ac8e Mon Sep 17 00:00:00 2001
+From 977a435d4ef9cd7c4d71918d7f81cb5562f1bd94 Mon Sep 17 00:00:00 2001
 From: Adamantcheese <Adamantcheese@users.noreply.github.com>
-Date: Mon, 12 Oct 2020 20:09:01 -0700
-Subject: [PATCH] remove leakcanary patch
+Date: Thu, 15 Oct 2020 00:17:46 -0700
+Subject: [PATCH] remove leakcanary for CI
 
 ---
  Kuroba/app/build.gradle | 2 --
  1 file changed, 2 deletions(-)
 
 diff --git a/Kuroba/app/build.gradle b/Kuroba/app/build.gradle
-index a12c73ee3..f2a8a4d61 100644
+index ad5cb11a1..f4eecfef1 100644
 --- a/Kuroba/app/build.gradle
 +++ b/Kuroba/app/build.gradle
 @@ -254,8 +254,6 @@ dependencies {
@@ -19,7 +19,7 @@ index a12c73ee3..f2a8a4d61 100644
 -    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
  }
  
- // Download the current archives.json file for the build
+ // Download the current archives.json
 -- 
 2.20.1.windows.1
 
