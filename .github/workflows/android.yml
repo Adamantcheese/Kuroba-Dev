@@ -95,7 +95,8 @@ jobs:
         asset_name: ${{ steps.build.outputs.app-name }}-${{ steps.get-tag.outputs.tag }}.apk
         asset_content_type: application/vnd.android.package-archive
     
-    - uses: dev-drprasad/delete-older-releases@v0.1.0
+    - name: Delete older releases
+      uses: dev-drprasad/delete-older-releases@v0.1.0
       with:
         keep_latest: 25
         delete_tags: true
