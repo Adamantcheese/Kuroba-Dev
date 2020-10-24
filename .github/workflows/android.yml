@@ -94,3 +94,10 @@ jobs:
         asset_path: ${{ steps.build.outputs.output_apk }}
         asset_name: ${{ steps.build.outputs.app-name }}-${{ steps.get-tag.outputs.tag }}.apk
         asset_content_type: application/vnd.android.package-archive
+    
+    - uses: dev-drprasad/delete-older-releases@v0.1.0
+      with:
+        keep_latest: 25
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
