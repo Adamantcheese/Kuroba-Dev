@@ -8,11 +8,11 @@ Subject: [PATCH] remove leakcanary for CI
  1 file changed, 2 deletions(-)
 
 diff --git a/Kuroba/app/build.gradle b/Kuroba/app/build.gradle
-index ad5cb11a1..f4eecfef1 100644
+index 617929517..eddee0830 100644
 --- a/Kuroba/app/build.gradle
 +++ b/Kuroba/app/build.gradle
-@@ -254,8 +254,6 @@ dependencies {
-     testImplementation 'com.squareup.okhttp3:mockwebserver:4.8.0'
+@@ -255,8 +255,6 @@ dependencies {
+     testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.0'
      testImplementation 'org.mockito:mockito-core:3.4.6'
      testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 -
@@ -22,4 +22,3 @@ index ad5cb11a1..f4eecfef1 100644
  // Download the current archives.json
 -- 
 2.20.1.windows.1
-
