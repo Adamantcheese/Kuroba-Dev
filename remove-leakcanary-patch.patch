@@ -1,7 +1,7 @@
-From 977a435d4ef9cd7c4d71918d7f81cb5562f1bd94 Mon Sep 17 00:00:00 2001
+From 9598e0cb63b78179ad3cfe831f70df551f0f83f3 Mon Sep 17 00:00:00 2001
 From: Adamantcheese <Adamantcheese@users.noreply.github.com>
-Date: Thu, 15 Oct 2020 00:17:46 -0700
-Subject: [PATCH] remove leakcanary for CI
+Date: Wed, 18 Nov 2020 00:51:02 -0800
+Subject: [PATCH] Update leakcanary for CI
 
 ---
  Kuroba/app/build.gradle | 2 --
@@ -21,4 +21,5 @@ index 617929517..eddee0830 100644
  
  // Download the current archives.json
 -- 
-2.20.1.windows.1
+2.24.1.windows.2
+
