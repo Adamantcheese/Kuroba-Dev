@@ -13,12 +13,6 @@ jobs:
       with:
         repository: ${{ github.repository_owner }}/Kuroba
         fetch-depth: 0
-        
-    # Checkout your CI repo, for patches
-    - uses: actions/checkout@v2
-      with:
-        repository: ${{ github.repository_owner}}/Kuroba-Dev
-        path: patches
 
     # Get the SHA for the most recent commit in your master repo
     - name: Generate Git SHA
@@ -37,15 +31,6 @@ jobs:
       id: get-version
       run: |
         echo "::set-output name=version::$(git describe --abbrev=0 --tags)"
-        
-    # Apply any patches needed here
-    - name: Apply Patches
-      run: |
-        cd ./patches
-        mv *.patch ..
-        cd ..
-        rm -rf ./patches
-        git apply remove-leakcanary-patch.patch
     
     # Set up the JDK for the build
     - name: Set up JDK 1.8
