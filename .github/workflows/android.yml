@@ -81,7 +81,7 @@ jobs:
       run: |
         cd ./Kuroba/Kuroba
         ./gradlew assembleDevDebug --console plain -x lint
-        cd ..
+        cd ../..
         echo "::set-output name=output_apk::$(find -name "*.apk")"
         echo "::set-output name=app-name::$(find -name "*.apk" | xargs basename | sed 's/\.apk//')"
         
