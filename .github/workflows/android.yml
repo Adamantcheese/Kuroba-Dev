@@ -3,6 +3,7 @@ name: Build Dev
 on:
   repository_dispatch:
     types: [build_dev]
+  workflow_dispatch:
 
 jobs:
   build:
