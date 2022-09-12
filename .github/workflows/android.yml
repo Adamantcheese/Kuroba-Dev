@@ -32,8 +32,8 @@ jobs:
       run: |
         echo "::set-output name=version::$(git describe --abbrev=0 --tags)"
     
-    # Set up the JDK for the build
-    - name: Set up JDK 1.8
+    # Set up the Java/JDK for the build, mostly for gradle
+    - name: Set up Java 17
       uses: actions/setup-java@v1
       with:
         java-version: '17'
