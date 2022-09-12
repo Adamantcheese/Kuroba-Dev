@@ -41,9 +41,9 @@ jobs:
     # Set up any Android SDK dependencies; this is similar to a travis setup, change the vars as needed
     - name: Install Android Libraries
       env:
-        API: 29
-        BUILDTOOLS: 29.0.3
-        NDK: 21.0.6113669
+        API: 32
+        BUILDTOOLS: 30.0.3
+        NDK: 22.1.7171670
       run: |
         echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "tools" "platforms;android-$API" "build-tools;$BUILDTOOLS" "extras;android;m2repository" "ndk;$NDK" --sdk_root=${ANDROID_SDK_ROOT} > /dev/null
     
