@@ -28,6 +28,8 @@ jobs:
       id: git-commit
       run: |
         cd ./Kuroba-dev
+        git config --global user.email "Adamantcheese@users.noreply.github.com"
+        git config --global user.name "Adamantcheese"
         git commit --allow-empty -m "Release commit"
         echo "::set-output name=commitish::$(git rev-parse HEAD)"
         
