@@ -17,18 +17,14 @@ jobs:
         path: Kuroba
         fetch-depth: 0
         
+    # Checkout your dev repo
     - name: Checkout Kuroba-dev
       uses: actions/checkout@v2
       with:
         path: Kuroba-dev
         fetch-depth: 0
-        
-    - name: Push release commit
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        directory: Kuroba-dev
 
+    # Setup Git info for your release
     # Get the SHA for the most recent commit in your master repo
     # Trim the commit SHA to be 8 characters long for the release
     # Get the version tag of the most recent release in your master repo
@@ -75,7 +71,7 @@ jobs:
         echo "::set-output name=output_apk::$(find -name "*.apk")"
         echo "::set-output name=app-name::$(find -name "*.apk" | xargs basename | sed 's/\.apk//')"
         
-    # Create and get the SHA for the most recent commit in the dev repo
+    # Create a commit for the release to be attached to in the dev repo
     - name: Create Release commit
       id: git-commit
       run: |
@@ -84,6 +80,13 @@ jobs:
         git commit --allow-empty -m "Release commit"
         echo "::set-output name=commitish::$(git rev-parse HEAD)"
       working-directory: ./Kuroba-dev
+    
+    # Push that commit
+    - name: Push release commit
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        directory: Kuroba-dev
         
     # Create a release in this repository with a tag name of <release_version>-<trimmed_SHA> and a body of the full commit SHA
     - name: Create Release
@@ -109,6 +112,7 @@ jobs:
         asset_name: ${{ steps.outputs.outputs.app-name }}-${{ steps.get-info.outputs.tag }}.apk
         asset_content_type: application/vnd.android.package-archive
     
+    # Cleanup older releases; only keep 25 around
     - name: Delete older releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
       with:
