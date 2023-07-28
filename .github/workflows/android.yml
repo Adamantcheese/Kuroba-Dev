@@ -48,7 +48,7 @@ jobs:
       uses: maxim-lobanov/setup-android-tools@v1
       with:
         packages: |
-          platforms;android-32
+          platforms;android-33
           build-tools;30.0.3
           extras;android;m2repository
           ndk;22.1.7171670
