@@ -31,9 +31,9 @@ jobs:
     - name: Generate Git Info
       id: get-info
       run: |
-        echo "::set-output name=SHA::$(git rev-parse HEAD)"
-        echo "::set-output name=tag::$(git rev-parse HEAD | cut -c1-8)"
-        echo "::set-output name=version::$(git describe --abbrev=0 --tags)"
+        echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        echo "tag=$(git rev-parse HEAD | cut -c1-8)" >> $GITHUB_OUTPUT
+        echo "version=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
       working-directory: ./Kuroba
         
     
@@ -56,7 +56,7 @@ jobs:
         
     # Build the android project
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.7.0
       with:
         arguments: |
           assembleDevDebug
@@ -68,8 +68,8 @@ jobs:
     - name: Setup outputs
       id: outputs
       run: |
-        echo "::set-output name=output_apk::$(find -name "*.apk")"
-        echo "::set-output name=app-name::$(find -name "*.apk" | xargs basename | sed 's/\.apk//')"
+        echo "output_apk=$(find -name "*.apk")" >> $GITHUB_OUTPUT
+        echo "app-name=$(find -name "*.apk" | xargs basename | sed 's/\.apk//')" >> $GITHUB_OUTPUT
         
     # Create a commit for the release to be attached to in the dev repo
     - name: Create Release commit
@@ -78,7 +78,7 @@ jobs:
         git config --global user.email "Adamantcheese@users.noreply.github.com"
         git config --global user.name "Adamantcheese"
         git commit --allow-empty -m "Release commit"
-        echo "::set-output name=commitish::$(git rev-parse HEAD)"
+        echo "commitish=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
       working-directory: ./Kuroba-dev
     
     # Push that commit
